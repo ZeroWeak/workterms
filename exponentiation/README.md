@@ -541,7 +541,7 @@ The further terms will only have their specific meaning when they are formed in 
 
 ![Δ(19 vs 18) Scenario](https://user-images.githubusercontent.com/36441664/274093531-0878e3e5-6be3-448e-9ad4-3b34523c1e9c.jpg)
 
-This paper presents a novel conceptual framework aligning the stages of trading strategy hyperoptimization with the hierarchy of fundamental forces in physics.
+_[This paper](https://github.com/freqtrade/freqtrade/tree/2025.12/docs)_ presents a novel conceptual framework aligning the stages of trading strategy hyperoptimization with the hierarchy of fundamental forces in physics.
 
 ```tip
 Hyperopt in algorithmic trading involves tuning multiple _[interacting components](https://schema.freqtrade.io/schema.json)_ such as buy/sell logic, ROI models, risk protections, and meta-settings. To manage this complexity and define a meaningful sequence, we draw an analogy from the layered architecture of physics: from weak nuclear interactions to the theory of everything.
@@ -763,18 +763,18 @@ Being a high level of non-patterned noise in the form of outlier data points, th
 
 ```
 UPWARD TREND
+- Profit Total
+- Trade Count
 - Win Rate
 - Profit Mean
-- Trade Count
-- Profit Total
 
-RETRACEMENTS
+RETRACEMENT (φ)
 - CAGR
 - Calmar
 - Sortino
 - Max Drawdown
 
-EXTENTIONS
+EXTENTION
 - SQN
 - Sharpe
 - Profit Factor
@@ -846,8 +846,8 @@ Although seemingly different, the various approaches to defining tensors describ
 BASIC FORMULAS for Freqtrade Backtest Metrics
 ============================================
 
-OVERALL PRIORITY
-----------------
+UPWARD TREND
+------------
 
 Profit Total
 = Gross Profit - Gross Loss
@@ -863,19 +863,72 @@ Trades            Confidence Level
 500 – 1000        High
 > 1000            Very High
 
-CRITICAL METRICS
-----------------
+Win Rate
+= Winning_Trades / Total_Trades * 100
 
-Profit Factor (PF)
- = Gross_Profit / abs(Gross_Loss)
+Win Rate          Interpretation
+< 30%             Low
+30% – 40%         Moderate
+40% – 55%         Healthy
+55% – 70%         High
+> 70%             Verify PF and RR
 
-PF                Quality
-< 1.0             Losing
-1.0 – 1.10        Weak
-1.10 – 1.25       Acceptable
-1.25 – 1.50       Good
-1.50 – 2.00       Strong
-> 2.00            Exceptional
+Profit Mean per Trade
+= Win_Rate/ Initial_Capital * 100
+
+Profit Mean       Quality
+< 0%              Losing
+0% – 0.10%        Very Small Edge
+0.10% – 0.25%     Small Edge
+0.25% – 0.50%     Good Edge
+0.50% – 1.00%     Strong Edge
+> 1.00%           Exceptional Edge
+
+RETRACEMENT (φ)
+---------------
+
+CAGR (Compound Annual Growth Rate)
+
+CAGR for backtests longer than 1 year
+= (End_Value / Start_Value) ^ (1 / Years) - 1 * 100
+
+CAGR              Rating
+< 0%              Losing
+0% – 10%          Weak
+10% – 20%         Acceptable
+20% – 40%         Good
+40% – 60%         Strong
+> 60%             Exceptional
+
+CAGR for backtests shorter than 6 months
+
+CAGR              Interpretation
+Any Value         Informational Only
+Use with caution due to annualization effects.
+
+Calmar Ratio
+= CAGR / Max_Drawdown
+
+Calmar            Interpretation
+< 0.5             Poor
+0.5 – 1.0         Weak
+1.0 – 2.0         Acceptable
+2.0 – 3.0         Good
+3.0 – 5.0         Excellent
+> 5.0             Exceptional
+> 10              Verify Time Horizon
+> 20              Annualization Artifact / Extraordinary
+
+Sortino Ratio
+= (CAGR - Risk_Free_Rate) / Downside_Deviation
+
+Sortino           Interpretation
+< 1               Weak
+1 – 2             Acceptable
+2 – 3             Good
+3 – 5             Excellent
+5 – 10            Exceptional
+> 10              Investigate Robustness
 
 Max Drawdown (DD)
 = (Peak_Value - Trough_Value) / Peak_Value * 100
@@ -887,6 +940,43 @@ DD                Rating
 20% – 30%         Risky
 30% – 50%         Dangerous
 > 50%             Unacceptable
+
+EXTENSION
+---------
+
+SQN (System Quality Number)
+= (Mean_Trade_Profit / StdDev_Trade_Profit) * (Total_Trades ** 0.5)
+
+SQN               Rating
+< 1.6             Poor
+1.6 – 2.0         Average
+2.0 – 3.0         Good
+3.0 – 5.0         Excellent
+5.0 – 7.0         Superb
+> 7.0             Exceptional
+
+Sharpe Ratio
+= (CAGR - Risk_Free_Rate) / StdDev_Returns
+
+Sharpe            Interpretation
+< 0               Losing
+0 – 1             Weak
+1 – 2             Good
+2 – 3             Excellent
+3 – 5             Exceptional
+5 – 8             Extremely Rare
+> 8               Investigate Further
+
+Profit Factor (PF)
+ = Gross_Profit / abs(Gross_Loss)
+
+PF                Quality
+< 1.0             Losing
+1.0 – 1.10        Weak
+1.10 – 1.25       Acceptable
+1.25 – 1.50       Good
+1.50 – 2.00       Strong
+> 2.00            Exceptional
 
 Expectancy Ratio
 = (Win_Rate * Avg_Win) - ((1 - Win_Rate) * Avg_Loss)
@@ -902,97 +992,6 @@ Expectancy Ratio  Rating
 0.50 – 1.00      Good
 1.00 – 2.00      Strong
 > 2.00           Exceptional
-
-MEDIUM METRICS
---------------
-
-SQN (System Quality Number)
-= (Mean_Trade_Profit / StdDev_Trade_Profit) * (Total_Trades ** 0.5)
-
-SQN               Rating
-< 1.6             Poor
-1.6 – 2.0         Average
-2.0 – 3.0         Good
-3.0 – 5.0         Excellent
-5.0 – 7.0         Superb
-> 7.0             Exceptional
-
-Win Rate
-= Winning_Trades / Total_Trades * 100
-
-Win Rate          Interpretation
-< 30%             Low
-30% – 40%         Moderate
-40% – 55%         Healthy
-55% – 70%         High
-> 70%             Verify PF and RR
-
-Profit Mean per Trade
-= (Profit_Total / Total_Trades) / Initial_Capital * 100
-
-Profit Mean       Quality
-< 0%              Losing
-0% – 0.10%        Very Small Edge
-0.10% – 0.25%     Small Edge
-0.25% – 0.50%     Good Edge
-0.50% – 1.00%     Strong Edge
-> 1.00%           Exceptional Edge
-
-DIAGNOSTIC METRICS
-------------------
-
-Sortino Ratio
-= (CAGR - Risk_Free_Rate) / Downside_Deviation
-
-Sortino           Interpretation
-< 1               Weak
-1 – 2             Acceptable
-2 – 3             Good
-3 – 5             Excellent
-5 – 10            Exceptional
-> 10              Investigate Robustness
-
-Sharpe Ratio
-= (CAGR - Risk_Free_Rate) / StdDev_Returns
-
-Sharpe            Interpretation
-< 0               Losing
-0 – 1             Weak
-1 – 2             Good
-2 – 3             Excellent
-3 – 5             Exceptional
-5 – 8             Extremely Rare
-> 8               Investigate Further
-
-Calmar Ratio
-= CAGR / Max_Drawdown
-
-Calmar            Interpretation
-< 0.5             Poor
-0.5 – 1.0         Weak
-1.0 – 2.0         Acceptable
-2.0 – 3.0         Good
-3.0 – 5.0         Excellent
-> 5.0             Exceptional
-> 10              Verify Time Horizon
-> 20              Annualization Artifact / Extraordinary
-
-CAGR (for backtests longer than 1 year)
-= (End_Value / Start_Value) ^ (1 / Years) - 1 * 100
-
-CAGR              Rating
-< 0%              Losing
-0% – 10%          Weak
-10% – 20%         Acceptable
-20% – 40%         Good
-40% – 60%         Strong
-> 60%             Exceptional
-
-CAGR (for backtests shorter than 6 months)
-
-CAGR              Interpretation
-Any Value         Informational Only
-Use with caution due to annualization effects.
 ```
 
 In our approach a 3-form is not an object that exist in addition to the metric, it is the only object that exist and in particular ***[the 4D metric, is defined by the 3-form](https://eq19.github.io/identition/span12/#three-3-layers)***.
