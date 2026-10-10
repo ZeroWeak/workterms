@@ -2,9 +2,9 @@ id: 169
 user: eq19
 span: span-150
 title: eQuantum
-baseurl: /spectral
-repository: ZeroWeak/spectral
-action: ZeroWeak/algorithms/actions/runs/27887488692
+baseurl: /workterms
+repository: ZeroWeak/workterms
+action: ZeroWeak/spectral/actions/runs/38012109488
 description: eQuantum Project - Zero Weak Boson
 
 debug:
@@ -48,5 +48,5 @@ plugins:
 
 track:
   spin: [12, 12]
-  pinned: [maps, feed, lexer, parser, syntax, grammar, pysme, numqi, pyrate, nthmc, algorithms, spectral]
+  pinned: [maps, feed, lexer, parser, syntax, grammar, pysme, numqi, pyrate, nthmc, spectral, workterms]
   organization: [Chetabahana, FeedMapping, GlobalZones, HybridModels, JunctionTerms, KernelPatterns, MappingSystem, NeuralSystem, ObjectModules, VirtualNetworks, WeakNegative, WeakPositive, ZeroWeak]

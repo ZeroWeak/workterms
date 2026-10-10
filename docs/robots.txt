@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: /spectral/sitemap_index.xml
+Sitemap: /workterms/sitemap_index.xml
