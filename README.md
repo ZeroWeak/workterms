@@ -353,6 +353,8 @@ So the most important thing that need to be investigated is ***why the prime spi
 Similarly, I have a six colored dice in the form of the hexagon.  If I take a known, logical sequence of numbers, say 10, 100, 1000, 10000, and look at their spins in the hexagon, the resulting colors associated with each number should appear random – ***unless the sequence I’m investigating is linked to the nature of the prime numbers***.
 ```
 
+***7 + 7th prime = 7 + 17 = 24***
+
 ![](https://user-images.githubusercontent.com/36441664/74550123-6dd1d680-4f83-11ea-8810-3b8f4f50a9c0.png)
 
 So there would be the empty spaces for `18 - 7 = 11` numbers. By our project these spaces will be _[unified](https://eq19.github.io/exponentiation/#god-particle)_ by all of the eleven (11) members of ***[identition zones](https://eq19.github.io/identition/)***.
